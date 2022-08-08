@@ -9,8 +9,6 @@ from optuna.samplers import TPESampler
 from sklearn import metrics
 from sklearn.model_selection import StratifiedGroupKFold
 
-cv_id = 0
-
 text = pd.read_csv("../text.csv")
 data = np.load("last_hidden_state.npy")
 
@@ -41,7 +39,7 @@ def objective(trial):
         'n_jobs': 16
     }
 
-    kf = StratifiedGroupKFold(n_splits=2, shuffle=True)
+    kf = StratifiedGroupKFold(n_splits=5, shuffle=True)
     log_loss = []
     for train_index, test_index in kf.split(data, y=text['discourse_effectiveness'], groups=text['essay_id']):
         X_train_K, X_test_K = data[train_index], data[test_index]
