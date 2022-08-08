@@ -13,7 +13,7 @@ text = pd.read_csv("text.csv")
 cv = StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=42)
 
 for i, (train_idxs, test_idxs) in enumerate(
-        cv.split(text, y=text[["discourse_effectiveness"]], groups=text[["discourse_type"]])):
+        cv.split(text, y=text[["discourse_effectiveness"]], groups=text[["essay_id"]])):
     data = []
     for idx in tqdm(train_idxs):
         composed_text, _, composed_text_mask = tokenizer.encode_plus(text.iloc[idx]["composed_text"],
